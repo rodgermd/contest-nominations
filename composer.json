@@ -11,9 +11,7 @@
     }
   ],
   "require":{
-    "symfony/symfony":"*",
-    "vich/uploader-bundle": "*",
-    "liip/imagine-bundle": "*"
+    "rodgermd/sftools-bundle": "dev-master"
   },
   "autoload":{
     "psr-0":{
