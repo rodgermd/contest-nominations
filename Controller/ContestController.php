@@ -27,7 +27,7 @@ class ContestController extends Controller
    */
   protected function getRepository()
   {
-    return $this->getDoctrine()->getRepository('SiteBaseBundle:Contest');
+    return $this->getDoctrine()->getRepository('Rodgermd\ContestNominationsBundle\Entity\Contest');
   }
 
   /**

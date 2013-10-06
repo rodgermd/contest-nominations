@@ -40,8 +40,8 @@ class ContestManager
   public function __construct(Registry $doctrine, Request $request, ImagesExtension $images_helper, Validator $validator, $vote_limit)
   {
     $this->doctrine                  = $doctrine;
-    $this->contest_member_repository = $doctrine->getRepository('RodgermdContestNominationsBundle:ContestMember');
-    $this->contest_vote_repository   = $doctrine->getRepository('RodgermdContestNominationsBundle:ContestVote');
+    $this->contest_member_repository = $doctrine->getRepository('Rodgermd\ContestNominationsBundle\Entity\ContestMember');
+    $this->contest_vote_repository   = $doctrine->getRepository('Rodgermd\ContestNominationsBundle\Entity\ContestVote');
     $this->request                   = $request;
     $this->images_helper             = $images_helper;
     $this->validator                 = $validator;
