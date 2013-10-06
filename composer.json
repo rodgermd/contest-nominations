@@ -1,0 +1,24 @@
+{
+  "name":"rodgermd/contests-nomitaions-bundle",
+  "description":"Contintest with nominations shared library",
+  "homepage":"https://github.com/rodgermd/contest-nominations",
+  "type":"symfony-bundle",
+  "license":"MIT",
+  "authors":[
+    {
+      "name":"Alexander Murashov",
+      "email":"rodger@ladela.com"
+    }
+  ],
+  "require":{
+    "symfony/symfony":"*",
+    "vich/uploader-bundle": "*",
+    "liip/imagine-bundle": "*"
+  },
+  "autoload":{
+    "psr-0":{
+      "Rodgermd\\ContestNominationsBundle":""
+    }
+  },
+  "target-dir":"Rodgermd/ContestNominationsBundle"
+}

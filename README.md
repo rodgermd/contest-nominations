@@ -1,0 +1,1 @@
+Contests with nominations shared library
