@@ -1,0 +1,13 @@
+services:
+  rodgermd.contest_nominations.manager.contest:
+    class: Rodgermd\ContestNominationsBundle\Manager\ContestManager
+    arguments: [@doctrine, @request, @rodgermd.twig.images_extension, @validator, %site.vote_limit%]
+    scope: request
+
+  rodgermd.contest_nominations.validator.has_vote_limit:
+    class: Rodgermd\ContestNominationsBundle\Validator\HasVoteLimitValidator
+    arguments: [@rodgermd.contest_nominations.manager.contest]
+    scope: request
+    tags:
+      - { name: validator.constraint_validator, alias: has_vote_limit }
+
