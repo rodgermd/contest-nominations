@@ -5,6 +5,7 @@ namespace Rodgermd\ContestNominationsBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
+use Site\BaseBundle\Entity\AbstractTranslation;
 use Site\BaseBundle\Entity\Member;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
