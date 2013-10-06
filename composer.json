@@ -1,5 +1,5 @@
 {
-  "name":"rodgermd/contests-nomitaions-bundle",
+  "name":"rodgermd/contests-nominations-bundle",
   "description":"Contintest with nominations shared library",
   "homepage":"https://github.com/rodgermd/contest-nominations",
   "type":"symfony-bundle",
