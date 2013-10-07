@@ -22,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="Rodgermd\ContestNominationsBundle\Entity\ContestMemberRepository")
  * @Vich\Uploadable
  * @Gedmo\TranslationEntity(class="Rodgermd\ContestNominationsBundle\Entity\ContestMemberTranslation")
- * @UniqueEntity({"contest", "member"})
+ * @UniqueEntity({"contest_nomination", "member"})
  */
 class ContestMember
 {
