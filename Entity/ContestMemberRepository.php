@@ -13,14 +13,14 @@ use Doctrine\ORM\Query;
  */
 class ContestMemberRepository extends EntityRepository
 {
-  public function getExtendedMembersData(Contest $contest, $ip)
+  public function getExtendedMembersData(ContestNomination $nomination, $ip)
   {
     $qb = $this->createQueryBuilder('cm')
       ->select('cm, ci')
       ->leftJoin('cm.images', 'ci')
       ->leftJoin('cm.votes', 'cv', 'WITH', 'cv.ip = :ip')
-      ->where('cm.contest = :contest')
-      ->setParameter('contest', $contest->getId())
+      ->where('cm.contest_nomination = :nomination')
+      ->setParameter('nomination', $nomination->getId())
       ->setParameter('ip', $ip)
       ->orderBy('cm.votes_number', 'desc');
 

@@ -10,6 +10,7 @@
 namespace Rodgermd\ContestNominationsBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Rodgermd\ContestNominationsBundle\Entity\ContestNomination;
 use Rodgermd\SfToolsBundle\Twig\ImagesExtension;
 use Rodgermd\ContestNominationsBundle\Entity\Contest;
 use Rodgermd\ContestNominationsBundle\Entity\ContestMember;
@@ -85,14 +86,14 @@ class ContestManager
 
   /**
    * Gets response for contest members
-   * @param Contest $contest
+   * @param ContestNomination $nomination
    * @return Response
    */
-  public function getContestMembersResponse(Contest $contest)
+  public function getNominationMembersResponse(ContestNomination $nomination)
   {
     $result  = array();
     $members = array();
-    foreach ($this->contest_member_repository->getExtendedMembersData($contest, $this->request->getClientIp()) as $contest_member) {
+    foreach ($this->contest_member_repository->getExtendedMembersData($nomination, $this->request->getClientIp()) as $contest_member) {
       /** @var ContestMember $contest_member */
       $images = array();
       foreach ($contest_member->getImages() as $image) {
@@ -108,7 +109,7 @@ class ContestManager
     }
 
     $result['members']    = $members;
-    $result['allow_vote'] = $this->isVoteAllowed($contest);
+    $result['allow_vote'] = $this->isVoteAllowed($nomination);
 
     return $this->json_response($result);
   }

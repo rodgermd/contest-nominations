@@ -232,15 +232,6 @@ class Contest extends AbstractBackgroundEntity
     return $this->video_url;
   }
 
-  /**
-   * Gets related ContestMember objects
-   * @return PersistentCollection
-   */
-  public function getContestMembers()
-  {
-    return $this->contest_members;
-  }
-
   public function setTranslatableLocale($locale)
   {
     $this->locale = $locale;
