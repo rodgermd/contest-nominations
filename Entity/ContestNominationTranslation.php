@@ -7,21 +7,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Site\BaseBundle\Entity\AbstractTranslation;
 
 /**
- * Class ContestTranslation
+ * Class ContestNominationTranslation
  * @package Rodgermd\ContestNominationsBundle\Entity
  * @ORM\Entity
- * @ORM\Table(name="contest__translations",
+ * @ORM\Table(name="contest__nominations_translations",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="lookup_unique_idx", columns={
  *         "locale", "object_id", "field"
  *     })}
  * )
  */
-class ContestTranslation extends AbstractTranslation
+class ContestNominationTranslation extends AbstractTranslation
 {
   /**
-   * @ORM\ManyToOne(targetEntity="Contest", inversedBy="translations")
+   * @ORM\ManyToOne(targetEntity="ContestNomination", inversedBy="translations")
    * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
-   * @var Contest
+   * @var ContestNomination
    */
   protected $object;
 }

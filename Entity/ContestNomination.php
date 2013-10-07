@@ -14,15 +14,14 @@ use Symfony\Component\Validator\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Contest
+ * ContestNomination
  *
- * @ORM\Table(name="contest")
- * @ORM\Entity(repositoryClass="Rodgermd\ContestNominationsBundle\Entity\ContestRepository")
- * @Gedmo\TranslationEntity(class="Rodgermd\ContestNominationsBundle\Entity\ContestTranslation")
+ * @ORM\Table(name="contest__nominations")
+ * @ORM\Entity(repositoryClass="Rodgermd\ContestNominationsBundle\Entity\ContestNominationRepository")
+ * @Gedmo\TranslationEntity(class="Rodgermd\ContestNominationsBundle\Entity\ContestNominationTranslation")
  * @Vich\Uploadable
- * @Assert\Callback(methods={"isEndDateValid"})
  */
-class Contest extends AbstractBackgroundEntity
+class ContestNomination extends AbstractBackgroundEntity
 {
   /**
    * @var integer
@@ -69,23 +68,29 @@ class Contest extends AbstractBackgroundEntity
   protected $content;
 
   /**
-   * @var \DateTime
-   * @Assert\NotNull(message="validation.contest.fields.required.end_date")
-   * @ORM\Column(name="end_date", type="date")
-   */
-  private $end_date;
-
-  /**
    * @Gedmo\Locale
    */
   protected $locale;
 
   /**
-   * @var string
-   * @Gedmo\Translatable
-   * @ORM\Column(type="string", nullable=true)
+   * @var string $slug
+   * @Gedmo\Slug(handlers={
+   *    @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
+   *    @Gedmo\SlugHandlerOption(name="relationField", value="contest"),
+   *    @Gedmo\SlugHandlerOption(name="relationSlugField", value="slug")
+   *      })
+   * },
+   * fields={"title"}
+   * )
+   * @ORM\Column(name="slug", type="string", length=255, unique=true)
    */
-  private $video_url;
+  protected $slug;
+
+  /**
+   * @var PersistentCollection $member_contests
+   * @ORM\OneToMany(targetEntity="ContestMember", mappedBy="contest_nomination")
+   */
+  private $contest_members;
 
   /**
    * @var string $image_filename
@@ -111,32 +116,16 @@ class Contest extends AbstractBackgroundEntity
   private $translations;
 
   /**
-   * @var PersistentCollection
-   * @ORM\OneToMany(
-   *   targetEntity="Rodgermd\ContestNominationsBundle\Entity\ContestNomination",
-   *   mappedBy="contest"
-   * )
+   * @var Contest
+   * @ORM\ManyToOne(targetEntity="Rodgermd\ContestNominationsBundle\Entity\Contest", inversedBy="nominations")
+   * @ORM\JoinColumn(name="contest_id", referencedColumnName="id", onDelete="CASCADE")
    */
-  private $nominations;
-
-  /**
-   * @Gedmo\Slug(handlers={
-   *  @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
-   *    @Gedmo\SlugHandlerOption(name="relationClass", value="Rodgermd\ContestNominationsBundle\Entity\ContestNomination"),
-   *    @Gedmo\SlugHandlerOption(name="mappedBy", value="contest"),
-   *    @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
-   *  })
-   * },
-   * fields={"title"})
-   * @var string
-   * @ORM\Column(name="slug", type="string", length=255)
-   **/
-  protected $slug;
+  protected $contest;
 
   public function __construct()
   {
-    $this->translations = new ArrayCollection();
-    $this->nominations  = new ArrayCollection();
+    $this->translations    = new ArrayCollection();
+    $this->contest_members = new ArrayCollection();
   }
 
   /**
@@ -169,46 +158,23 @@ class Contest extends AbstractBackgroundEntity
   }
 
   /**
-   * Set endDate
-   *
-   * @param \DateTime $endDate
-   * @return Contest
-   */
-  public function setEndDate($endDate)
-  {
-    $this->end_date = $endDate;
-
-    return $this;
-  }
-
-  /**
-   * Get endDate
-   * @return \DateTime
-   */
-  public function getEndDate()
-  {
-    return $this->end_date;
-  }
-
-  /**
-   * Sets video url
-   * @param string $video_url
+   * Sets Contest
+   * @param \Rodgermd\ContestNominationsBundle\Entity\Contest $contest
    * @return $this
    */
-  public function setVideoUrl($video_url)
+  public function setContest(Contest $contest)
   {
-    $this->video_url = $video_url;
-
+    $this->contest = $contest;
     return $this;
   }
 
   /**
-   * Gets video url
-   * @return string
+   * Gets contest
+   * @return \Rodgermd\ContestNominationsBundle\Entity\Contest
    */
-  public function getVideoUrl()
+  public function getContest()
   {
-    return $this->video_url;
+    return $this->contest;
   }
 
   /**
@@ -256,34 +222,4 @@ class Contest extends AbstractBackgroundEntity
     return $this;
   }
 
-  /**
-   * Sets nominations
-   * @param \Doctrine\ORM\PersistentCollection $nominations
-   * @return $this
-   */
-  public function setNominations($nominations)
-  {
-    $this->nominations = $nominations;
-    return $this;
-  }
-
-  /**
-   * Gets nominations
-   * @return \Doctrine\ORM\PersistentCollection
-   */
-  public function getNominations()
-  {
-    return $this->nominations;
-  }
-
-  public function isEndDateValid(ExecutionContextInterface $context)
-  {
-    if ($this->end_date < new \DateTime()) {
-      $tomorrow = new \DateTime('+1 day');
-      $context->addViolationAt('end_date', 'The date {{ date }} is not valid. Minimum date is {{ mindate }}', array(
-        '{{ date }}'    => $this->end_date->format('Y-m-d'),
-        '{{ mindate }}' => $tomorrow->format('Y-m-d'),
-      ));
-    }
-  }
 }

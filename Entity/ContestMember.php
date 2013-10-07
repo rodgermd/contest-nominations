@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * ContestMember
  *
  * @ORM\Table(name="contest__member", uniqueConstraints={
- * @ORM\UniqueConstraint(name="contest_member_unique_idx", columns={"contest_id", "member_id"})
+ * @ORM\UniqueConstraint(name="contest_member_unique_idx", columns={"contest_nomination_id", "member_id"})
  * })
  * @ORM\Entity(repositoryClass="Rodgermd\ContestNominationsBundle\Entity\ContestMemberRepository")
  * @Vich\Uploadable
@@ -90,10 +90,11 @@ class ContestMember
   private $member;
 
   /**
-   * @var Contest $contest
-   * @ORM\ManyToOne(targetEntity="Contest", inversedBy="contest_members")
+   * @var Contest $contest_nomination
+   * @ORM\ManyToOne(targetEntity="ContestNomination", inversedBy="contest_members")
+   * @ORM\JoinColumn(name="contest_nomination_id", referencedColumnName="id", onDelete="CASCADE")
    */
-  private $contest;
+  private $contest_nomination;
 
   /**
    * @Assert\File(maxSize="5M", mimeTypes={"image/png", "image/jpeg", "image/pjpeg"})
@@ -301,22 +302,22 @@ class ContestMember
   }
 
   /**
-   * @param Contest $contest
+   * @param ContestNomination $contest_nomination
    * @return $this
    */
-  public function setContest(Contest $contest)
+  public function setContestNomination(ContestNomination $contest_nomination)
   {
-    $this->contest = $contest;
+    $this->contest_nomination = $contest_nomination;
 
     return $this;
   }
 
   /**
-   * @return Contest
+   * @return ContestNomination
    */
-  public function getContest()
+  public function getContestNomination()
   {
-    return $this->contest;
+    return $this->contest_nomination;
   }
 
   /**
