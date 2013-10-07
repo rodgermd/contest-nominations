@@ -108,7 +108,7 @@ class ContestNomination extends AbstractBackgroundEntity
 
   /**
    * @ORM\OneToMany(
-   *   targetEntity="Rodgermd\ContestNominationsBundle\Entity\ContestTranslation",
+   *   targetEntity="Rodgermd\ContestNominationsBundle\Entity\ContestNominationTranslation",
    *   mappedBy="object",
    *   cascade={"persist", "remove"}
    * )
