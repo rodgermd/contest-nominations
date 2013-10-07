@@ -43,6 +43,13 @@ class Contest extends AbstractBackgroundEntity
   /**
    * @var string
    * @Gedmo\Translatable
+   * @ORM\Column(name="conditions", type="text", nullable=true)
+   */
+  protected $conditions;
+
+  /**
+   * @var string
+   * @Gedmo\Translatable
    * @ORM\Column(type="text", nullable=true)
    */
   protected $metaKeywords;
