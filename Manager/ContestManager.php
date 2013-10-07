@@ -51,24 +51,24 @@ class ContestManager
 
   /**
    * Checks if current user is allowed to vote in contest
-   * @param Contest $contest
+   * @param ContestNomination $contest_nomination
    * @return bool
    */
-  public function isVoteAllowed(Contest $contest)
+  public function isVoteAllowed(ContestNomination $contest_nomination)
   {
-    $last_vote = $this->getLastContestVote($contest);
+    $last_vote = $this->getLastContestVote($contest_nomination);
 
     return $this->checkVoteAllowsToVoteNow($last_vote);
   }
 
   /**
    * Gets last content vote
-   * @param Contest $contest
+   * @param ContestNomination $contest_nomination
    * @return null|ContestVote
    */
-  public function getLastContestVote(Contest $contest)
+  public function getLastContestVote(ContestNomination $contest_nomination)
   {
-    return $this->contest_vote_repository->getLastContestVote($contest, $this->request->getClientIp());
+    return $this->contest_vote_repository->getLastContestVote($contest_nomination, $this->request->getClientIp());
   }
 
   /**

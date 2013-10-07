@@ -14,15 +14,15 @@ class ContestVoteRepository extends EntityRepository
 {
   /**
    * Gets last vote in contest
-   * @param Contest $contest
+   * @param ContestNomination $contest_nomination
    * @param $ipaddress
    * @return ContestVote|null
    */
-  public function getLastContestVote(Contest $contest, $ipaddress)
+  public function getLastContestVote(ContestNomination $contest_nomination, $ipaddress)
   {
     return $this->createQueryBuilder('cv')
       ->innerJoin('cv.contest_member', 'cm')
-      ->where('cm.contest = :contest')->setParameter('contest', $contest->getId())
+      ->where('cm.contest_nomination = :nomination')->setParameter('nomination', $contest_nomination->getId())
       ->andWhere('cv.ip = :ip')->setParameter('ip', $ipaddress)
       ->orderBy('cv.created_at', 'desc')
       ->setMaxResults(1)
