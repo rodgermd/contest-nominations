@@ -308,6 +308,28 @@ class Contest extends AbstractBackgroundEntity
   }
 
   /**
+   * Sets conditions text
+   * @param string $conditions
+   * @return $this
+   */
+  public function setConditions($conditions = null)
+  {
+    $this->conditions = $conditions;
+    return $this;
+  }
+
+  /**
+   * Gets conditions text
+   * @return string
+   */
+  public function getConditions()
+  {
+    return $this->conditions;
+  }
+
+
+
+  /**
    * Gets logo
    * @return UploadedFile
    */
