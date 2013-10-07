@@ -109,6 +109,20 @@ class Contest extends AbstractBackgroundEntity
   protected $image;
 
   /**
+   * @var string $logo_filename
+   * @ORM\Column(name="logo_filename", type="string", length=50, nullable=true)
+   */
+  protected $logo_filename;
+
+  /**
+   * @var string image
+   * @Assert\File(maxSize="5M", mimeTypes={"image/png", "image/jpeg", "image/pjpeg"})
+   * @Vich\UploadableField(mapping="contests", fileNameProperty="logo_filename")
+   * @var UploadedFile $logo
+   */
+  protected $logo;
+
+  /**
    * @ORM\OneToMany(
    *   targetEntity="Rodgermd\ContestNominationsBundle\Entity\ContestTranslation",
    *   mappedBy="object",
@@ -128,10 +142,10 @@ class Contest extends AbstractBackgroundEntity
 
   /**
    * @Gedmo\Slug(handlers={
-   *  @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
-   *    @Gedmo\SlugHandlerOption(name="relationClass", value="Rodgermd\ContestNominationsBundle\Entity\ContestNomination"),
-   *    @Gedmo\SlugHandlerOption(name="mappedBy", value="contest"),
-   *    @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
+   * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
+   * @Gedmo\SlugHandlerOption(name="relationClass", value="Rodgermd\ContestNominationsBundle\Entity\ContestNomination"),
+   * @Gedmo\SlugHandlerOption(name="mappedBy", value="contest"),
+   * @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
    *  })
    * },
    * fields={"title"})
@@ -271,6 +285,7 @@ class Contest extends AbstractBackgroundEntity
   public function setNominations($nominations)
   {
     $this->nominations = $nominations;
+
     return $this;
   }
 
@@ -281,6 +296,33 @@ class Contest extends AbstractBackgroundEntity
   public function getNominations()
   {
     return $this->nominations;
+  }
+
+  /**
+   * Sets logo
+   * @param UploadedFile|array $logo
+   * @return $this
+   */
+  public function setLogo($logo = null)
+  {
+    if (is_array($logo)) {
+      if ($logo['delete']) $this->logo_filename = null;
+      $logo = $logo['file'];
+    }
+
+    $this->logo_filename = $logo;
+    $this->updated_at    = null;
+
+    return $this;
+  }
+
+  /**
+   * Gets logo
+   * @return UploadedFile
+   */
+  public function getLogo()
+  {
+    return $this->logo_filename;
   }
 
   public function isEndDateValid(ExecutionContextInterface $context)
