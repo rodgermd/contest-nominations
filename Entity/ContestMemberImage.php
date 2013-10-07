@@ -136,10 +136,20 @@ class ContestMemberImage
    * @param ContestMember $member
    * @return $this
    */
-  public function setContest_member(ContestMember $member)
+  public function setContestMember(ContestMember $member)
   {
     $this->contest_member = $member;
 
     return $this;
   }
+
+  /**
+   * @return \Rodgermd\ContestNominationsBundle\Entity\ContestMember
+   */
+  public function getContestMember()
+  {
+    return $this->contest_member;
+  }
+
+
 }
