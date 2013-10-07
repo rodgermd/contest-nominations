@@ -39,9 +39,9 @@ class HasVoteLimitValidator extends ConstraintValidator {
   public function validate($value, Constraint $constraint)
   {
     /** @var ContestVote $value */
-    $contest = $value->getContestMember()->getContest();
+    $nomination = $value->getContestMember()->getContestNomination();
 
-    if (!$this->manager->isVoteAllowed($contest)) $this->context->addViolation($constraint->message);
+    if (!$this->manager->isVoteAllowed($nomination)) $this->context->addViolation($constraint->message);
   }
 
 }
