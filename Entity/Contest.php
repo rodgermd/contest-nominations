@@ -310,8 +310,8 @@ class Contest extends AbstractBackgroundEntity
       $logo = $logo['file'];
     }
 
-    $this->logo_filename = $logo;
-    $this->updated_at    = null;
+    $this->logo       = $logo;
+    $this->updated_at = null;
 
     return $this;
   }
@@ -322,7 +322,7 @@ class Contest extends AbstractBackgroundEntity
    */
   public function getLogo()
   {
-    return $this->logo_filename;
+    return $this->logo;
   }
 
   public function isEndDateValid(ExecutionContextInterface $context)
