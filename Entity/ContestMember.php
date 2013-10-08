@@ -61,8 +61,7 @@ class ContestMember
   /**
    * @var string
    * @Gedmo\Translatable
-   * @ORM\Column(name="description", type="string", length=255)
-   * @Assert\NotNull(message="Description is required")
+   * @ORM\Column(name="description", type="string", length=255, nullable=true)
    */
   private $description = '';
 
