@@ -327,7 +327,11 @@ class Contest extends AbstractBackgroundEntity
     return $this->conditions;
   }
 
-
+  public function isFinished()
+  {
+    $now = new \DateTime();
+    return $this->end_date < $now;
+  }
 
   /**
    * Gets logo
