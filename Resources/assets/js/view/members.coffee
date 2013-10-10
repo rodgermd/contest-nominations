@@ -46,15 +46,13 @@
     id = $b.data 'member-id'
     @$el.trigger 'contest.vote', { member : @members.get id }
   handle_vote        : ( e, data ) ->
-    console.log e, data
     member = data.member
     $.ajax
-      url      : Routing.generate 'contest.vote', { slug : @contest, id : member.id }
+      url      : Routing.generate 'contest.vote', { id : member.id }
       type     : 'PUT'
       complete : =>
         @load_members()
         @render()
   handle_switch_page : ( e, page )->
     @page = parseInt( page )
-    console.log page
     @render()
