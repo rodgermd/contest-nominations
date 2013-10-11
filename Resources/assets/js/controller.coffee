@@ -1,14 +1,14 @@
 @AppController = Backbone.Router.extend
   members_view : null
   routes       :
-    ''     : 'list'
-    '!:id' : 'member'
+    ''       : 'list'
+    '!:slug' : 'member'
   list         : ->
     @members_view = new MembersView() unless @members_view
     @members_view.render()
-  member       : ( id ) ->
+  member       : ( slug ) ->
     @members_view = new MembersView() unless @members_view
-    @members_view.render( id )
+    @members_view.render( slug )
 
 $ =>
   # ------- BEGIN --------

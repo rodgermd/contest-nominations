@@ -18,9 +18,9 @@
     'click .close-modal' : 'close'
     'click .locker'      : 'close'
     'click .vote'        : 'handle_vote_click'
-  render            : ( allow_vote, id ) ->
-    if id
-      member = @members.get id
+  render            : ( allow_vote, slug ) ->
+    if slug
+      member = @members.get slug
       @$el.html @template member : member.toJSON(), allow_vote : allow_vote
       @holder = $( '.view-holder', @$el )
       @open()

@@ -1,4 +1,5 @@
 @Member = Backbone.Model.extend
+  idAttribute: 'slug'
   defaults   :
     company       : null
     position      : null
@@ -14,6 +15,7 @@
     votes         : 0
     place         : null
     allow_vote    : null
+    slug          : null
   initialize : ->
     member_data = @get 'member'
     @set 'name', member_data.name

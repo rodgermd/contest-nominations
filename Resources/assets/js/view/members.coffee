@@ -48,7 +48,7 @@
   handle_vote        : ( e, data ) ->
     member = data.member
     $.ajax
-      url      : Routing.generate 'contest.vote', { id : member.id }
+      url      : Routing.generate 'contest.vote', { slug : member.get 'slug' }
       type     : 'PUT'
       complete : =>
         @load_members()

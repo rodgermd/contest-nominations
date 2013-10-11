@@ -66,6 +66,20 @@ class ContestMember
   private $description = '';
 
   /**
+   * @var string
+   * @Gedmo\Slug(handlers={
+   * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
+   * @Gedmo\SlugHandlerOption(name="relationField", value="member"),
+   * @Gedmo\SlugHandlerOption(name="relationSlugField", value="slug"),
+   * @Gedmo\SlugHandlerOption(name="separator", value="-")
+   *   })
+   *
+   * }, fields={"id"})
+   * @ORM\Column(type="string", length=255)
+   */
+  protected $slug;
+
+  /**
    * @var \DateTime
    *
    * @ORM\Column(name="created_at", type="datetime")
@@ -498,16 +512,38 @@ class ContestMember
     return $this->votes;
   }
 
+  /**
+   * Sets slug
+   * @param string $slug
+   * @return $this
+   */
+  public function setSlug($slug)
+  {
+    $this->slug = $slug;
+
+    return $this;
+  }
+
+  /**
+   * Gets slug
+   * @return string
+   */
+  public function getSlug()
+  {
+    return $this->slug;
+  }
+
   public function toArray()
   {
     return array(
       'id'          => $this->getId(),
+      'slug'        => $this->getSlug(),
       'company'     => $this->getCompany(),
       'position'    => $this->getPosition(),
       'experience'  => $this->getExperience(),
       'description' => $this->getDescription(),
-      'place' => $this->getPlace(),
-      'votes' => $this->getVotes()->count()
+      'place'       => $this->getPlace(),
+      'votes'       => $this->getVotes()->count()
     );
   }
 }
