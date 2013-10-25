@@ -124,7 +124,7 @@ class ContestMember
 
   /**
    * @var PersistentCollection
-   * @ORM\OneToMany(targetEntity="Rodgermd\ContestNominationsBundle\Entity\ContestMemberImage", mappedBy="contest_member")
+   * @ORM\OneToMany(targetEntity="Rodgermd\ContestNominationsBundle\Entity\ContestMemberImage", mappedBy="contest_member", cascade={"remove"})
    */
   private $images;
 
@@ -144,7 +144,7 @@ class ContestMember
 
   /**
    * @var PersistentCollection $votes
-   * @ORM\OneToMany(targetEntity="Rodgermd\ContestNominationsBundle\Entity\ContestVote", mappedBy="contest_member")
+   * @ORM\OneToMany(targetEntity="Rodgermd\ContestNominationsBundle\Entity\ContestVote", mappedBy="contest_member", cascade={"remove"})
    */
   private $votes;
 
