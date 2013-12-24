@@ -140,7 +140,7 @@ class ContestMember
    *   cascade={"persist", "remove"}
    * )
    */
-  private $translations;
+  protected $translations;
 
   /**
    * @var PersistentCollection $votes

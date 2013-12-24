@@ -129,7 +129,7 @@ class Contest extends AbstractBackgroundEntity
    *   cascade={"persist", "remove"}
    * )
    */
-  private $translations;
+  protected $translations;
 
   /**
    * @var PersistentCollection
