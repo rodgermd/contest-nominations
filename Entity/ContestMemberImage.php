@@ -156,5 +156,13 @@ class ContestMemberImage
     return $this->contest_member;
   }
 
+    /**
+     * @return string
+     */
+    public function getImageFilename()
+    {
+        return $this->image_filename;
+    }
+
 
 }
