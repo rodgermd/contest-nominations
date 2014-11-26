@@ -10,7 +10,7 @@ use Site\BaseBundle\Entity\AbstractBackgroundEntity;
 use Site\BaseBundle\Entity\AbstractTranslation;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -379,20 +379,19 @@ class Contest extends AbstractBackgroundEntity
     {
         return $this->logo_filename;
     }
-    
+
 
     public function isEndDateValid(ExecutionContextInterface $context)
     {
         if ($this->end_date < new \DateTime()) {
             $tomorrow = new \DateTime('+1 day');
-            $context->addViolationAt(
-                'end_date',
+            $context->buildViolation(
                 'The date {{ date }} is not valid. Minimum date is {{ mindate }}',
                 array(
                     '{{ date }}'    => $this->end_date->format('Y-m-d'),
                     '{{ mindate }}' => $tomorrow->format('Y-m-d'),
                 )
-            );
+            )->atPath('end_date')->addViolation();
         }
     }
 }
