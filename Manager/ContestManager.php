@@ -113,11 +113,11 @@ class ContestManager
             /** @var ContestMember $contest_member */
             $images = array();
             foreach ($contest_member->getImages() as $image) {
-                $images[] = $this->images_helper->uploaded_image_source($image, 'contest.member.popup.images', 'image');
+                $images[] = $this->images_helper->uploaded_image_source($image, 'contest_member_popup_images', 'image');
             }
             $data                  = $contest_member->toArray();
-            $data['profile_image'] = $this->images_helper->uploaded_image_source($contest_member, 'contest.member.popup.avatar', 'image');
-            $data['list_image']    = $this->images_helper->uploaded_image_source($contest_member, 'contest.member.preview', 'image');
+            $data['profile_image'] = $this->images_helper->uploaded_image_source($contest_member, 'contest_member_popup_avatar', 'image');
+            $data['list_image']    = $this->images_helper->uploaded_image_source($contest_member, 'contest_member_preview', 'image');
             $data['member']        = $contest_member->getMember()->toArray();
             $data['images']        = $images;
             $data['voted']         = $contest_member->getVotes()->count();

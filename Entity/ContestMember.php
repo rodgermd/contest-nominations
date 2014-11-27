@@ -571,6 +571,13 @@ class ContestMember
         return $this->image_filename;
     }
 
+    /**
+     * @param string $image_filename
+     */
+    public function setImageFilename($image_filename)
+    {
+        $this->image_filename = $image_filename;
+    }
 
     public function toArray()
     {
