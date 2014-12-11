@@ -11,7 +11,7 @@
     }
   ],
   "require":{
-    "rodgermd/sftools-bundle": "dev-master"
+    "rodgermd/sftools-bundle": "@stable"
   },
   "autoload":{
     "psr-0":{
